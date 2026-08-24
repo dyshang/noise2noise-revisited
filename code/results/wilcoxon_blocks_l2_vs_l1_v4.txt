@@ -1,0 +1,8 @@
+Wilcoxon signed-rank, n2n_l2 vs n2n_l1 (positive delta = A better); Holm over 3 tests
+noise           metric      n   mean dA-B         p    p_holm  verdict
+----------------------------------------------------------------------
+sidd_val_blocks psnr       40      0.6190    0.0000    0.0000  A>B*
+sidd_val_blocks ssim       40      0.0221    0.0000    0.0000  A>B*
+sidd_val_blocks lpips      40     -0.0288    0.0000    0.0000  A>B*
+
+*: significant after Holm at alpha; +: raw p < alpha only

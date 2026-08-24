@@ -1,0 +1,13 @@
+torch>=2.0
+torchvision>=0.15
+numpy>=1.23
+Pillow>=9.0
+scikit-image>=0.21
+scipy>=1.10
+lpips>=0.1.4
+bm3d>=4.0.1
+tqdm>=4.65
+matplotlib>=3.7
+# Only needed if your SIDD validation .mat files are MATLAB v7.3 (HDF5);
+# eval_sidd_blocks.py falls back to h5py when scipy.io.loadmat refuses them.
+h5py>=3.8

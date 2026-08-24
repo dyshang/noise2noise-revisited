@@ -1,0 +1,50 @@
+Wilcoxon signed-rank, n2n_l1 vs n2n_l2 (positive delta = A better); Holm over 45 tests
+noise           metric      n   mean dA-B         p    p_holm  verdict
+----------------------------------------------------------------------
+gauss15         psnr       24      0.7812    0.0000    0.0000  A>B*
+gauss15         ssim       24      0.0055    0.0000    0.0000  A>B*
+gauss15         lpips      24     -0.0015    0.0738    0.5903  A>B (n.s.)
+gauss25         psnr       24      0.4068    0.0000    0.0000  A>B*
+gauss25         ssim       24      0.0051    0.0000    0.0003  A>B*
+gauss25         lpips      24     -0.0010    0.5088    1.0000  A>B (n.s.)
+gauss50         psnr       24      0.3318    0.0000    0.0000  A>B*
+gauss50         ssim       24      0.0077    0.0000    0.0000  A>B*
+gauss50         lpips      24     -0.0037    0.0229    0.2523  A>B+
+impulse10       psnr       24      0.4227    0.0000    0.0000  A>B*
+impulse10       ssim       24      0.0078    0.0001    0.0030  A>B*
+impulse10       lpips      24     -0.0032    0.3029    1.0000  A>B (n.s.)
+impulse30       psnr       24      0.4103    0.0000    0.0000  A>B*
+impulse30       ssim       24      0.0105    0.0000    0.0011  A>B*
+impulse30       lpips      24     -0.0073    0.0105    0.1366  A>B+
+impulse60       psnr       24      0.1358    0.0000    0.0000  A>B*
+impulse60       ssim       24      0.0083    0.0000    0.0001  A>B*
+impulse60       lpips      24     -0.0079    0.0035    0.0596  A>B+
+sp05            psnr       24      0.0877    0.0039    0.0624  A>B+
+sp05            ssim       24      0.0023    0.1355    0.8132  A>B (n.s.)
+sp05            lpips      24     -0.0001    0.3596    1.0000  A>B (n.s.)
+sp10            psnr       24      0.2590    0.0000    0.0011  A>B*
+sp10            ssim       24      0.0124    0.0001    0.0030  A>B*
+sp10            lpips      24     -0.0072    0.0043    0.0650  A>B+
+poisson30       psnr       24      0.3434    0.0000    0.0000  A>B*
+poisson30       ssim       24      0.0032    0.0007    0.0134  A>B*
+poisson30       lpips      24     -0.0002    0.7469    1.0000  A>B (n.s.)
+poisson60       psnr       24      0.5108    0.0000    0.0000  A>B*
+poisson60       ssim       24      0.0047    0.0000    0.0004  A>B*
+poisson60       lpips      24     -0.0023    0.0564    0.5078  A>B (n.s.)
+speckle05       psnr       24      0.5437    0.0000    0.0000  A>B*
+speckle05       ssim       24      0.0047    0.0000    0.0001  A>B*
+speckle05       lpips      24     -0.0025    0.1074    0.7517  A>B (n.s.)
+speckle10       psnr       24      0.3784    0.0000    0.0002  A>B*
+speckle10       ssim       24      0.0031    0.0059    0.0826  A>B+
+speckle10       lpips      24     -0.0023    0.1780    0.8899  A>B (n.s.)
+speckle20       psnr       24      0.3066    0.0001    0.0015  A>B*
+speckle20       ssim       24      0.0033    0.0138    0.1654  A>B+
+speckle20       lpips      24     -0.0042    0.0340    0.3399  A>B+
+speckle50       psnr       24      0.2560    0.0001    0.0020  A>B*
+speckle50       ssim       24      0.0109    0.0001    0.0020  A>B*
+speckle50       lpips      24     -0.0209    0.0000    0.0000  A>B*
+sidd_real       psnr       64     -0.5817    0.0000    0.0000  B>A*
+sidd_real       ssim       64     -0.0270    0.0000    0.0000  B>A*
+sidd_real       lpips      64      0.0377    0.0000    0.0000  B>A*
+
+*: significant after Holm at alpha; +: raw p < alpha only
