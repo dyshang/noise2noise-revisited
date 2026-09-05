@@ -11,9 +11,9 @@ Usage::
 
     python eval_sidd_blocks.py \
         --blocks-dir ../data/SIDD_Blocks \
-        --noise2noise-ckpts l2_real_v2=ckpts/n2n_l2_real_v2.pt ... \
+        --noise2noise-ckpts l2_real=ckpts/n2n_l2_real_v4.pt ... \
         --bm3d \
-        --out results/sidd_val_blocks_v2.json
+        --out results/sidd_val_blocks_v4.json
 
 Metrics are computed on the raw network output per block, then averaged.
 """

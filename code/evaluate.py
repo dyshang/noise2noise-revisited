@@ -12,11 +12,11 @@ Usage example::
         --eval-root ../data/Kodak24 \
         --sidd-root ../data/SIDD_Medium_Srgb \
         --noise2noise-ckpts \
-            l1=ckpts/n2n_l1.pt l2=ckpts/n2n_l2.pt \
-            l1_real=ckpts/n2n_l1_real.pt l2_real=ckpts/n2n_l2_real.pt \
-        --n2v-ckpt ckpts/n2v.pt \
+            l1=ckpts/n2n_l1_v4.pt l2=ckpts/n2n_l2_v4.pt \
+            l1_real=ckpts/n2n_l1_real_v4.pt l2_real=ckpts/n2n_l2_real_v4.pt \
+        --n2v-ckpt ckpts/n2v_v4.pt \
         --bm3d \
-        --out results/cross_noise_kodak.json
+        --out results/cross_noise_kodak_v4.json
 
 The SIDD eval set is the deterministic 32-scene held-out split of
 SIDD-Medium (see ``data.sidd_scene_split``); the same split's *training*

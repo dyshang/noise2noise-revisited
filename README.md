@@ -26,9 +26,10 @@ Datasets: see `data/README.md` (all public; not redistributed here).
 | Step | Command (from `code/`) |
 |---|---|
 | Train all main models (5 synth losses, 5 real-pair losses, Noise2Void) | `bash train_all.sh` |
-| Full evaluation grid + official SIDD blocks + tables | `bash eval_all.sh gpu`, then `bash eval_all.sh bm3d`, then `bash eval_all.sh tables` |
-| Seed-gap table (needs `seeds_synth.sh` results) | `python render_tables.py --results results/cross_noise_kodak_v4.json --blocks-results results/sidd_val_blocks_v4.json --seeds-results results/kodak_seeds_v4.json --layout compact` |
-| CBM3D baseline re-run | `bash bm3d_baseline.sh` |
+| Evaluation grid + native SIDD32 + official SIDD blocks (GPU) | `bash eval_all.sh gpu` |
+| CBM3D baseline (CPU, hours; safe to run in parallel with the GPU pass) | `bash bm3d_baseline.sh` -- `bash eval_all.sh bm3d` is the same thing |
+| Merge the baseline in and render the paper tables | `bash eval_all.sh tables` |
+| Seed-gap table (needs `seeds_synth.sh` results) | `python render_tables.py --results results/cross_noise_kodak_v4.json --blocks-results results/sidd_val_blocks_v4.json --seeds-results results/kodak_seeds_v4.json --layout compact --out tables_compact.tex --seeds-out table_seeds.tex` |
 | Diagnostics (Huber δ=0.05, gradient stats, contaminated targets, N2V-real, Lasso α sweep) | `bash diagnostics_batch.sh` |
 | Synthetic-cell seed replication | `bash seeds_synth.sh` |
 | N2C supervised anchor + real-cell seeds | `bash n2c_and_real_seeds.sh` |
@@ -45,6 +46,18 @@ record the RNG seed inside each checkpoint.
 Wilcoxon tests, and the significance-test outputs (`wilcoxon_*.txt`).
 Files ending `_cbm3d` are the colour BM3D baseline used in all tables
 (`bm3d_rgb` with a wavelet-domain sigma estimate).
+
+The canonical `cross_noise_kodak_v4.json` and `sidd_val_blocks_v4.json`
+already have that baseline merged in as the `bm3d` row, so every table in
+the paper re-renders straight from a fresh clone -- no GPU, no dataset
+download:
+
+```bash
+cd code
+python render_tables.py --results results/cross_noise_kodak_v4.json \
+    --blocks-results results/sidd_val_blocks_v4.json \
+    --layout compact --out tables_compact.tex
+```
 
 ## Citation
 

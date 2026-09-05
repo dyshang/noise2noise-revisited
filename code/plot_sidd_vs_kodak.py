@@ -65,7 +65,7 @@ def gain(summary: dict, method: str, col: str, metric: str) -> float:
 
 def main() -> None:
     p = argparse.ArgumentParser()
-    p.add_argument("--results", default="results/cross_noise_kodak.json")
+    p.add_argument("--results", default="results/cross_noise_kodak_v4.json")
     p.add_argument(
         "--blocks-results",
         default=None,

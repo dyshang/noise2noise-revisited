@@ -1,11 +1,11 @@
 """Render booktabs LaTeX tables from a cross-noise results JSON.
 
 Usage:
-    python render_tables.py --results results/cross_noise_kodak.json \
+    python render_tables.py --results results/cross_noise_kodak_v4.json \
                             --out ../paper/tables.tex
 
 The output is three full-width ``table*`` environments (PSNR / SSIM / LPIPS),
-matching the captions and labels referenced from ``paper/paper_revised.md``.
+matching the captions and labels referenced from the paper source.
 
 Method rows are organised in four groups separated by ``\\midrule``:
     1. Noisy input (no method).
@@ -259,7 +259,7 @@ def render_dual_metric(
 
 def main() -> None:
     p = argparse.ArgumentParser()
-    p.add_argument("--results", default="results/cross_noise_kodak.json")
+    p.add_argument("--results", default="results/cross_noise_kodak_v4.json")
     p.add_argument(
         "--blocks-results",
         default=None,

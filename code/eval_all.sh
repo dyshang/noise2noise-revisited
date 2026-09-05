@@ -8,8 +8,9 @@
 # Outputs:
 #   results/cross_noise_kodak_v4.json        (+ .per_image.json)  learned, synth+SIDD32
 #   results/sidd_val_blocks_v4.json          (+ .per_image.json)  learned, official blocks
-#   results/cross_noise_kodak_v4_bm3d.json   (+ .per_image.json)  BM3D, synth+SIDD32
-#   results/sidd_val_blocks_v4_bm3d.json     (+ .per_image.json)  BM3D, official blocks
+#   results/cross_noise_kodak_v4_cbm3d.json  (+ .per_image.json)  CBM3D, synth+SIDD32
+#   results/sidd32_v4_cbm3d.json             (+ .per_image.json)  CBM3D, native SIDD32
+#   results/sidd_val_blocks_v4_cbm3d.json    (+ .per_image.json)  CBM3D, official blocks
 set -euo pipefail
 cd "$(dirname "$0")"
 PY=.venv/bin/python
@@ -32,30 +33,12 @@ case "${1:-gpu}" in
     echo GPU_EVAL_DONE
     ;;
   bm3d)
-    # Three separately persisted stages: a single 7h pass that dies late
-    # loses everything (results are only written at the end of a pass).
-    if [ ! -f results/cross_noise_kodak_v4_bm3d.json ]; then
-      $PY evaluate.py \
-        --eval-root ../data/Kodak24 --max-side 4096 \
-        --bm3d \
-        --out results/cross_noise_kodak_v4_bm3d.json
-    fi
-    echo BM3D_STAGE_KODAK_DONE
-    if [ ! -f results/sidd_val_blocks_v4_bm3d.json ]; then
-      $PY eval_sidd_blocks.py \
-        --blocks-dir ../data/SIDD_Blocks \
-        --bm3d \
-        --out results/sidd_val_blocks_v4_bm3d.json
-    fi
-    echo BM3D_STAGE_BLOCKS_DONE
-    if [ ! -f results/sidd32_v4_bm3d.json ]; then
-      $PY evaluate.py \
-        --eval-root ../data/Kodak24 --skip-synth \
-        --sidd-root ../data/SIDD_Medium_Srgb --sidd-max-side 8192 \
-        --bm3d \
-        --out results/sidd32_v4_bm3d.json
-    fi
-    echo BM3D_EVAL_DONE
+    # Delegates to bm3d_baseline.sh so both entry points write the same
+    # _cbm3d files the tables stage merges. baselines.py has one BM3D path
+    # (bm3d_rgb + wavelet-MAD sigma); the *_bm3d.json names this stage used
+    # to write belong to the superseded per-channel run and are no longer
+    # reproducible from this code. CPU-only, hours -- run overnight.
+    bash bm3d_baseline.sh
     ;;
   tables)
     $PY - << 'EOF'
@@ -74,10 +57,10 @@ def merge(dst_path, src_path):
         json.dump(dst, f, indent=2)
     print(f"merged {src_path} -> {dst_path}")
 
-# _cbm3d, not _bm3d: the *_bm3d.json files are the superseded per-channel
-# grayscale-BM3D run kept only as evidence for the paper's removed-confounds
-# discussion. Merging them here would silently put the ~2 dB-low baseline back
-# into the canonical tables.
+# _cbm3d, not _bm3d: any *_bm3d.json left in results/ is the superseded
+# per-channel grayscale-BM3D run, kept only as evidence for the paper's
+# removed-confounds discussion. Merging those would silently put the
+# ~2 dB-low baseline back into the canonical tables.
 merge("results/cross_noise_kodak_v4.json", "results/cross_noise_kodak_v4_cbm3d.json")
 merge("results/cross_noise_kodak_v4.json", "results/sidd32_v4_cbm3d.json")
 merge("results/sidd_val_blocks_v4.json", "results/sidd_val_blocks_v4_cbm3d.json")
